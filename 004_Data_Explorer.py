@@ -2,6 +2,8 @@ import streamlit as st
 import io
 import pandas as pd
 import plotly.express as px
+import matplotlib as plt
+import seaborn as sn
 import os
 
 #set page
@@ -34,11 +36,19 @@ if data is not None:
 
     with cols1:
         st.subheader("Average Sepal of each species")
-        Avg_sepal_length = df.groupby( "Species" )['Sepal_length'].sum()
+        Avg_sepal_length = df.groupby( "Species" )['Sepal_length'].mean()
         st.write(Avg_sepal_length)
 
     with cols2:
-        fig = px.scatter(x= df['Sepal_length'], y = df['Sepal_width'])
+        st.subheader("Relative Sepal Length against Sepal Width")
 
-        fig.show()
+        #plotting the relativity graphs
+
+        
+        sn.scatterplot(x= df['Sepal_length'], y = df['Sepal_width'], hue = df['Species'])
+        plt.title('A graph plotting the Relativity of Sepal Length against Sepal Width')
+        plt.xlabel('Sepal Length (mm)')
+        plt.ylabel('Sepal Width (mm)')
+        plt.legends(loc = 'Upper Left')
+        plt.show()
   
